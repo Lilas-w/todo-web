@@ -1,5 +1,5 @@
 class TodoItem {
-  constructor(arg) {
+  constructor (arg) {
     this.content = arg;
     this.pending = true;
     this.birth = timeStamp();
@@ -20,6 +20,8 @@ class TodoItem {
   remove() {
     if (this.container.list.indexOf(this) != -1) {
       this.container.list.splice(this.container.list.indexOf(this), 1);
+      // A deleted to-do item won't re-appear on reload
+      this.container.saveToLS()
     }
   }
 

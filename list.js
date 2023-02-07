@@ -1,14 +1,14 @@
-$ = function(_id) {
+$ = function (_id) {
   return document.getElementById(_id);
 }
-_bind = function(func, that) {
-  return function() {
+_bind = function (func, that) {
+  return function () {
     func.call(that)
   }
 }
 
 class TodoView {
-  constructor(myList, finishedListView) {
+  constructor (myList, finishedListView) {
     this.myList = myList;
     this.todoListView = $("list-content");
     this.finishedListView = $("finished-list-content");
@@ -30,6 +30,12 @@ class TodoView {
   }
 
   bind() {
+    // Pressing Enter at the input box can add the item
+    $("input-content").addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        this.addBtnListner();
+      }
+    });
     $("button-add-item").addEventListener('click', _bind(this.addBtnListner, this));
     $("button-return").addEventListener('click', _bind(this.toggleView, this));
     $("button-view-finished").addEventListener('click', _bind(this.toggleView, this));
@@ -52,7 +58,7 @@ class TodoView {
     var content = this.todoInput.value;
     if (content.length == 0)
       alert('NOTHING TO ADD.');
-    else{
+    else {
       var item = new TodoItem(content);
       this.myList.addTask(item);
 
